@@ -1,3 +1,8 @@
+# Your CPU supports instructions that this TensorFlow binary was not compiled to use:
+# AVX2
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+
 # TensorFlow and tf.keras
 import tensorflow as tf
 from tensorflow import keras
@@ -9,6 +14,9 @@ import matplotlib.pyplot as plt
 print(tf.__version__)
 
 fashion_mnist = keras.datasets.fashion_mnist
+
+global train_images
+global train_labels
 
 (train_images, train_labels), (test_images, test_labels) = fashion_mnist.load_data()
 
@@ -52,6 +60,11 @@ model = keras.Sequential([
 model.compile(optimizer=tf.train.AdamOptimizer(),
               loss='sparse_categorical_crossentropy',
               metrics=['accuracy'])
+
+print(len(train_images), len(train_labels))
+
+# indices_for_conversion_to_dense
+
 
 model.fit(train_images, train_labels, epochs=5)
 
